@@ -1,0 +1,47 @@
+name: ultimate_pdf
+description: >-
+  Free, privacy-first, multilingual Android PDF viewer + editor, built on a
+  custom double-precision tiled vector viewport engine (CAD/GIS-scale capable)
+  with PDFium rasterization via pdfrx.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # PDFium binding for Flutter: page loading + raster rendering of sub-regions.
+  # Our engine drives tiling/culling/LOD/camera; pdfrx only rasterizes tiles.
+  # NOTE: confirm the installed pdfrx version's render() signature against
+  # lib/viewport/pdf_tile_rasterizer.dart (param names have shifted across 1.x).
+  pdfrx: ^1.0.0
+
+  # File open. (Swap for SAF / your own picker as needed.)
+  file_picker: ^8.1.0
+
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  # When wiring multilingual PDF rendering fallback (see README "Completion
+  # map"), bundle Noto fonts here and point PDFium/pdfrx at them. These are the
+  # APP-UI fonts; PDFium fallback configuration is separate.
+  # fonts:
+  #   - family: NotoSansArabic
+  #     fonts:
+  #       - asset: assets/fonts/NotoSansArabic-Regular.ttf
+  #   - family: NotoSansCJKsc
+  #     fonts:
+  #       - asset: assets/fonts/NotoSansCJKsc-Regular.otf
